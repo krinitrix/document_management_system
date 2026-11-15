@@ -1,0 +1,6 @@
+
+name: MarkLogic Integration
+type: module
+description: 'Integrates Drupal with the MarkLogic document database.'
+package: Custom
+core_version_requirement: ^11
