@@ -1,0 +1,26 @@
+# Dependencies
+/vendor/
+
+# Drupal generated files
+/web/sites/default/files/
+/web/sites/default/files/*
+!/web/sites/default/files/.gitkeep
+
+/web/sites/default/settings.local.php
+# DDEV local configuration
+.ddev/.config.*
+
+# Environment files
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
