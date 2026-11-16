@@ -1,0 +1,8 @@
+marklogic_integration.status:
+  path: 'admin/config/services/marklogic'
+  defaults:
+    _controller: 'Drupal\marklogic_integration\Controller\MarkLogicController::status'
+    _title: 'MarkLogic Configuration'
+  requirements:
+    _permission: 'administer site configuration'
+
