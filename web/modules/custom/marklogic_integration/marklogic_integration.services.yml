@@ -1,0 +1,4 @@
+services:
+  marklogic_integration.client:
+    class: Drupal\marklogic_integration\Service\MarkLogicClient
+    arguments: ['@http_client']

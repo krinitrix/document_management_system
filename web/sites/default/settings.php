@@ -910,3 +910,8 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
+$settings['marklogic'] = [
+  'base_url' => 'http://host.docker.internal:8011',
+  'username' => 'drupal_user',
+  'password' => 'drupal123',
+];
