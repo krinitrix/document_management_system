@@ -1,6 +1,4 @@
-
 <?php
-
 namespace Drupal\marklogic_integration\Service;
 
 use Drupal\Core\Site\Settings;

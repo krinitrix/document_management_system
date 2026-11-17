@@ -6,3 +6,10 @@ marklogic_integration.status:
   requirements:
     _permission: 'administer site configuration'
 
+marklogic_integration.save_employee:
+  path: '/admin/config/services/marklogic/save-employee'
+  defaults:
+    _controller: '\Drupal\marklogic_integration\Controller\MarkLogicController::saveEmployee'
+    _title: 'Save Employee to MarkLogic'
+  requirements:
+    _permission: 'administer site configuration'

@@ -912,6 +912,6 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 # }
 $settings['marklogic'] = [
   'base_url' => 'http://host.docker.internal:8011',
-  'username' => 'drupal_user',
+  'username' => 'drupal_app',
   'password' => 'drupal123',
 ];
