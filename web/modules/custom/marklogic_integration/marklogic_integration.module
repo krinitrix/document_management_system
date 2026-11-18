@@ -1,0 +1,80 @@
+
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function marklogic_integration_entity_insert(EntityInterface $entity) {
+
+  // Only process Employee nodes.
+  if (!$entity instanceof NodeInterface || $entity->bundle() !== 'employee') {
+    return;
+  }
+
+  marklogic_integration_sync_employee($entity);
+
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function marklogic_integration_entity_update(EntityInterface $entity) {
+
+  // Only process Employee nodes.
+  if (!$entity instanceof NodeInterface || $entity->bundle() !== 'employee') {
+    return;
+  }
+
+  marklogic_integration_sync_employee($entity);
+
+}
+
+/**
+ * Synchronizes an employee node with MarkLogic.
+ */
+function marklogic_integration_sync_employee(NodeInterface $node) {
+
+  try {
+
+    // Extract employee information from Drupal.
+    $employee = [
+      'employeeId' => $node->get('field_employee_id')->value,
+      'name' => $node->getTitle(),
+      'email' => $node->get('field_email')->value,
+      'department' => $node->get('field_department')->value,
+      'designation' => $node->get('field_designation')->value,
+      'salary' => (float) $node->get('field_salary')->value,
+    ];
+
+    // Use Drupal's node ID as a stable document identifier.
+    $uri = '/employees/' . $node->id() . '.json';
+
+    // Send the document to MarkLogic.
+    $result = \Drupal::service('marklogic_integration.client')
+      ->saveDocument($uri, $employee);
+
+    \Drupal::logger('marklogic_integration')->info(
+      'Employee @id synchronized with MarkLogic. HTTP status: @status',
+      [
+        '@id' => $node->id(),
+        '@status' => $result['status'],
+      ]
+    );
+
+  }
+  catch (\Throwable $e) {
+
+    \Drupal::logger('marklogic_integration')->error(
+      'Employee synchronization failed for node @id: @message',
+      [
+        '@id' => $node->id(),
+        '@message' => $e->getMessage(),
+      ]
+    );
+
+  }
+
+}
